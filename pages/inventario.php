@@ -1,3 +1,9 @@
+<?php
+    require("../php/getInventory.php");
+    $getInventory = new GetInventory();
+    $ProductInfo = $getInventory->showInventoryRecords();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -29,6 +35,10 @@
 
     <!-- Custom Fonts -->
     <link href="../vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- DataTables CSS -->
+    <!--<link rel="stylesheet" href="../vendor/datatables/css/dataTables.bootstrap.min.css"> -->
+    <!--<link rel="stylesheet" href="../vendor/datatables/css/jquery.dataTables.min.css"> -->
 
 </head>
 
@@ -90,7 +100,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="inventario.php"><i class="fas fa-scroll"></i> Inventario</a>
+                            <a class="active" href="inventario.php"><i class="fas fa-scroll"></i> Inventario</a>
                         </li>
                         <li>
                             <a href="forms.html"><i class="fas fa-file-signature"></i></i> Planillas</a>
@@ -169,93 +179,67 @@
         </nav>
 
         <div id="page-wrapper">
-
-            <!-- /.row -->
             <div class="row">
-                <div class="col-lg-8">
-                    <h4>Estadísticas</h4>
-                    <h6>Vista rápida de las estadísticas de la empresa</h6>
-                    <div class="row estadistics">
-                        <div class="col-lg-6">
-                            <div class="stat-icon">
-                                <i class="fas fa-users"></i>
-                            </div>
-                            <div class="stat-values">
-                                <div class="value">5160</div>
-                                <div class="name">Clientes</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="stat-icon">
-                                <i class="fas fa-warehouse"></i>
-                            </div>
-                            <div class="stat-values">
-                                <div class="value">2500</div>
-                                <div class="name">Productos</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row estadistics">
-                        <div class="col-lg-6">
-                            <div class="stat-icon">
-                                <i class="fas fa-dollar-sign"></i>
-                            </div>
-                            <div class="stat-values">
-                                <div class="value">$400</div>
-                                <div class="name">Ingreso diario</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="stat-icon">
-                                <i class="fas fa-user-tie"></i>
-                            </div>
-                            <div class="stat-values">
-                                <div class="value">150</div>
-                                <div class="name">Empleados</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row estadistics">
-                        <div class="col-lg-6">
-                            <div class="stat-icon">
-                                <i class="fas fa-file-alt"></i>
-                            </div>
-                            <div class="stat-values">
-                                <div class="value">50</div>
-                                <div class="name">Ordenes de trabajo</div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="stat-icon">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
-                            <div class="stat-values">
-                                <div class="value">$10,000</div>
-                                <div class="name">Ingresos este mes</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <h4>Actividades</h4>
-                    <h6>Nuevas instalaciones, suspensiones o renovaciones</h6>
-                    <div class="row orders">
-                        <div id="morris-donut-chart"></div>
-                    </div>
-                </div>
+                    <h1 class="page-header alert alert-info">Inventario</h1>
             </div>
             <!-- /.row -->
             <div class="row">
-                <div class="col-lg-8">
-                    <h4>Comparativa</h4>
-                    <h6>Comparativa con el año anterior</h6>
-                    <div class="row comparative">
-                        <div id="morris-area-chart"></div>
+                <button class="btn btn-primary pull-right" type="button" name="button"><i class="fas fa-plus-circle"></i> Agregar</button>
+                <br><br>
+                <div class="col-lg-12 estadistics">
+                    <table width="100%" class="table table-striped table-hover" id="inventario">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Descripción</th>
+                                <th>Categoría</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                foreach ($ProductInfo as $key) {
+                                    echo "<tr><td>";
+                                    echo $key["IdArticulo"] . "</td><td>";
+                                    echo $key["Codigo"] . "</td><td>";
+                                    echo $key["Nombre"] . "</td><td>";
+                                    echo $key["Descripcion"] . "</td><td>";
+                                    echo $key["Cantidad"] . "</td><td>";
+                                    echo $key["PrecioCompra"] . "</td><td>";
+                                    echo "<div class='btn-group pull-right'>
+                                                <button type='button' class='btn btn-default'>Opciones</button>
+                                                <button type='button' class='btn btn-default dropdown-toggle' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>
+                                                  <span class='caret'></span>
+                                                  <span class='sr-only'>Toggle Dropdown</span>
+                                                </button>
+                                                <ul class='dropdown-menu dropdown-user'>
+                                                    <li><a href='#'><i class='fas fa-eye'></i> Ver</a>
+                                                    </li>
+                                                    <li><a href='#'><i class='fas fa-edit'></i> Editar</a>
+                                                    </li>
+                                                    <li><a href='login.html'><i class='fas fa-trash-alt'></i> Eliminar</a>
+                                                    </li>
+                                                </ul>
+                                            </div>" . "</td></tr>";
+                                        }
+                                    ?>
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                    <div class="well">
+                        <h4>Inventario Cablesat</h4>
+                        <p>El presente inventario está conformado por todos y cada uno de los artículos que se encuentran almacenados en las bodegas de Cablesat u objetos que se encuentran en uso en las diferentes unidades de la empresa. Ver información en: <a target="_blank" href="https://datatables.net/">https://cablesat.net/</a>.</p>
+                        <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">Generar reporte</a>
                     </div>
                 </div>
+                <!-- /.col-lg-12 -->
             </div>
         </div>
         <!-- /#page-wrapper -->
+
     </div>
     <!-- /#wrapper -->
 
@@ -268,13 +252,34 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="../vendor/metisMenu/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <script src="../vendor/raphael/raphael.min.js"></script>
-    <script src="../vendor/morrisjs/morris.min.js"></script>
-    <script src="../data/morris-data.js"></script>
-
+    <!-- DataTables JavaScript -->
+    <script src="../vendor/datatables/js/dataTables.bootstrap.js"></script>
+    <script src="../vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="../vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="../vendor/datatables-responsive/dataTables.responsive.js"></script>
     <!-- Custom Theme JavaScript -->
     <script src="../dist/js/sb-admin-2.js"></script>
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#inventario').DataTable({
+            responsive: true,
+            "language": {
+            "lengthMenu": "Mostrar _MENU_ registros por página",
+            "zeroRecords": "No se encontró ningún registro",
+            "info": "Mostrando página _PAGE_ de _PAGES_",
+            "infoEmpty": "No se encontró ningún registro",
+            "search": "Buscar: ",
+            "infoFiltered": "(de un total de _MAX_ total registros)",
+            "paginate": {
+             "previous": "Anterior",
+             "next": "Siguiente"
+            }
+        }
+        });
+    });
+    </script>
+
 </body>
 
 </html>

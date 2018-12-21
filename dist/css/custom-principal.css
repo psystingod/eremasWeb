@@ -8,6 +8,11 @@
   color: #ffffff;
   font-weight: normal;
 }
+/*Resize icons*/
+.sidebar .fas{
+    font-size: 20px;
+}
+
 /*Top nav right*/
 
 .navbar-top-links li a:hover{
@@ -15,7 +20,8 @@
 }
 
 .sidebar .sidebar-nav{
-    height: 3000px;
+    height: 1000px;
+    overflow: hidden;
 }
 .sidebar-nav{
     color: #ffffff;
@@ -23,11 +29,13 @@
 }
 .sidebar-nav ul li{
     border: 0;
+
 }
 .sidebar-nav ul li a:hover{
     color: #ffffff;
     background: #263238;
 }
+
 .sidebar-nav ul li a{
     border: 0;
     color: #ffffff;
@@ -72,4 +80,10 @@
     background-color: #ffffff;
     padding-top: 20px;
     border: 1px solid #E0E0E0;
+}
+td ul.opt{
+    list-style-type: none;
+}
+.actions a:hover{
+    text-decoration: none;
 }

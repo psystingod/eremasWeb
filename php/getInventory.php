@@ -11,6 +11,7 @@
         }
         public function showInventoryRecords()
         {
+            try {
                 // SQL query para traer datos de los productos
                 $query = "SELECT * FROM tbl_articulo";
                 // Preparación de sentencia
@@ -21,6 +22,10 @@
                 $this->dbConnect = NULL;
                 return $result;
 
+            } catch (Exception $e) {
+                print "!Error¡: " . $e->getMessage() . "</br>";
+                die();
+            }
         }
     }
 ?>

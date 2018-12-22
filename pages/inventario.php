@@ -184,7 +184,7 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <button class="btn btn-primary pull-right" type="button" name="button"><i class="fas fa-plus-circle"></i> Agregar</button>
+                <button class="btn btn-primary pull-right" type="button" name="button" data-toggle="modal" data-target="#agregar"><i class="fas fa-plus-circle"></i> Agregar</button>
                 <br><br>
                 <div class="col-lg-12 estadistics">
                     <table width="100%" class="table table-striped table-hover" id="inventario">
@@ -215,7 +215,7 @@
                                                   <span class='caret'></span>
                                                   <span class='sr-only'>Toggle Dropdown</span>
                                                 </button>
-                                                <ul class='dropdown-menu dropdown-user'>
+                                                <ul class='dropdown-menu'>
                                                     <li><a href='#'><i class='fas fa-eye'></i> Ver</a>
                                                     </li>
                                                     <li><a href='#'><i class='fas fa-edit'></i> Editar</a>
@@ -242,6 +242,99 @@
 
     </div>
     <!-- /#wrapper -->
+
+    <!-- Add modal -->
+
+    <div class="modal fade" id="agregar" tabindex="-1" role="dialog" aria-labelledby="agregar">
+          <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                      <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="nuevoProducto">Nuevo producto</h4>
+                      </div>
+                      <div class="modal-body">
+                            <form>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-6 col-xs-6">
+                                          <label for="codigo">Código</label>
+                                          <input type="text" class="form-control" name="codigo" id="codigo" placeholder="Código del producto">
+                                      </div>
+                                      <div class="form-group col-md-6 col-xs-6">
+                                          <label for="fecha">Fecha</label>
+                                          <input type="text" class="form-control" name="fecha" id="fecha" placeholder="">
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-12 col-xs-12">
+                                          <label for="codigo">Nombre</label>
+                                          <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del producto">
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-6 col-xs-6">
+                                          <label for="proveedor">Proveedor</label>
+                                          <input type="text" class="form-control" name="proveedor" id="proveedor" placeholder="Proveedor">
+                                      </div>
+                                      <div class="form-group col-md-6 col-xs-6">
+                                          <label for="cantidad">Cantidad</label>
+                                          <input type="text" class="form-control" name="cantidad" id="cantidad" placeholder="Cantidad">
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-4 col-xs-4">
+                                          <label for="Tipo de producto">Tipo de producto</label>
+                                          <input type="text" class="form-control" name="tProducto" id="tProducto" placeholder="Tipo de producto">
+                                      </div>
+                                      <div class="form-group col-md-4 col-xs-4">
+                                          <label for="Categoria">Categoria</label>
+                                          <input type="text" class="form-control" name="categoria" id="categoria" placeholder="Categoria">
+                                      </div>
+                                      <div class="form-group col-md-4 col-xs-4">
+                                          <label for="Sub categoria">Sub categoria</label>
+                                          <input type="text" class="form-control" name="subCategoria" id="subCategoria" placeholder="Sub categoría">
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-6 col-xs-6">
+                                          <label for="bodega">Bodega</label>
+                                          <input type="text" class="form-control" name="bodega" id="bodega" placeholder="Bodega">
+                                      </div>
+                                      <div class="form-group col-md-6 col-xs-6">
+                                          <label for="departamento">Departamento</label>
+                                          <input type="text" class="form-control" name="departamento" id="departamento" placeholder="Departamento">
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-4 col-xs-4">
+                                          <label for="precio de compra">Precio de compra</label>
+                                          <input type="text" class="form-control" name="pCompra" id="pCompra" placeholder="Precio de compra">
+                                      </div>
+                                      <div class="form-group col-md-4 col-xs-4">
+                                          <label for="precio de venta">Precio de venta</label>
+                                          <input type="text" class="form-control" name="pVenta" id="pVenta" placeholder="Precio de venta">
+                                      </div>
+                                      <div class="form-group col-md-4 col-xs-4">
+                                          <label for="precio de venta">Unidad de medida</label>
+                                          <select class="form-control form-control-lg">
+                                              <option>Seleccionar</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div class="form-row">
+                                      <div class="form-group col-md-12 col-xs-12">
+                                            <label for="message-text" class="control-label">Descripción:</label>
+                                            <textarea class="form-control" id="message-text"></textarea>
+                                      </div>
+                                  </div>
+                            </form>
+                      </div>
+                      <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                            <button type="button" class="btn btn-primary">Registrar</button>
+                      </div>
+                </div>
+          </div>
+    </div><!-- /Add modal -->
 
     <!-- jQuery -->
     <script src="../vendor/jquery/jquery.min.js"></script>
@@ -270,6 +363,7 @@
             "info": "Mostrando página _PAGE_ de _PAGES_",
             "infoEmpty": "No se encontró ningún registro",
             "search": "Buscar: ",
+            "searchPlaceholder": "",
             "infoFiltered": "(de un total de _MAX_ total registros)",
             "paginate": {
              "previous": "Anterior",

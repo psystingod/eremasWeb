@@ -68,7 +68,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fas fa-user-circle"></i> Perfil</a>
                         </li>
-                        <li><a href="#"><i class="fas fa-cog"></i> Configuració</a>
+                        <li><a href="#"><i class="fas fa-cog"></i> Configuración</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="login.html"><i class="fas fa-sign-out-alt"></i></i> Salir</a>
@@ -181,6 +181,25 @@
         <div id="page-wrapper">
             <div class="row">
                     <h1 class="page-header alert alert-info">Inventario</h1>
+                    <?php
+                    if (isset($_GET['status'])) {
+                        if ($_GET['status'] == 'success') {
+                            echo "<div id='temporal' class='alert alert-warning alert-dismissible'>
+                                      <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                      Su registro <strong>ingresó</strong> con exito.
+                                  </div>";
+                        }
+                        else if ($_GET['status'] == 'failed'){
+                            echo "<div id='temporal' class='alert alert-danger alert-dismissible'>
+                                      <a href='#' class='close' data-dismiss='alert' aria-label='close'>&times;</a>
+                                      Su registro <strong>falló.</strong>
+                                  </div>";
+                        }
+                    }
+                    else {
+                        echo "<div id='temporal'> </div>";
+                    }
+                    ?>
             </div>
             <!-- /.row -->
             <div class="row">
@@ -253,7 +272,7 @@
                             <h4 class="modal-title" id="nuevoProducto">Nuevo producto</h4>
                       </div>
                       <div class="modal-body">
-                            <form>
+                            <form action="../php/enterProduct.php" method="post">
                                   <div class="form-row">
                                       <div class="form-group col-md-6 col-xs-6">
                                           <label for="codigo">Código</label>
@@ -323,14 +342,14 @@
                                   <div class="form-row">
                                       <div class="form-group col-md-12 col-xs-12">
                                             <label for="message-text" class="control-label">Descripción:</label>
-                                            <textarea class="form-control" id="message-text"></textarea>
+                                            <textarea class="form-control" name="descripcion" id="descripcion"></textarea>
                                       </div>
                                   </div>
-                            </form>
                       </div>
                       <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary">Registrar</button>
+                            <input type="submit" class="btn btn-primary" value="Registrar">
+                            </form>
                       </div>
                 </div>
           </div>
@@ -372,6 +391,12 @@
         }
         });
     });
+    </script>
+
+    <script type="text/javascript">
+        var d = new Date();
+        var month = String((parseInt(d.getMonth()+1)))
+        document.getElementById("fecha").value = d.getDate()+"/"+month+"/"+d.getFullYear();
     </script>
 
 </body>

@@ -23,6 +23,7 @@
     <!-- Custom CSS -->
     <link href="../dist/css/sb-admin-2.css" rel="stylesheet">
     <link rel="stylesheet" href="../dist/css/custom-principal.css">
+    <link rel="stylesheet" href="../dist/css/switches.css">
 
     <!-- Morris Charts CSS -->
     <link href="../vendor/morrisjs/morris.css" rel="stylesheet">
@@ -62,7 +63,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fas fa-user-circle"></i> Perfil</a>
                         </li>
-                        <li><a href="#"><i class="fas fa-cog"></i> Configuració</a>
+                        <li><a href="#"><i class="fas fa-cog"></i> Configuración</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="login.html"><i class="fas fa-sign-out-alt"></i></i> Salir</a>
@@ -171,14 +172,41 @@
             </div>
             <!-- /.navbar-static-side -->
         </nav>
-
         <div id="page-wrapper">
             <div class="row">
+                <br>
                 <div class="col-md-12">
-                    <br>
+                    <table class="table table-bordered table-responsive">
+                        <th></th>
+                        <th>Activo</th>
+                        <th>Suspendido</th>
+                        <th>Sin servicio</th>
+                        <tr class="info">
+                            <th>TV</th>
+                            <td><label class="switch"><input type="checkbox"checked><span class="slider round"></span></label></td>
+                            <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+                            <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+                        </tr>
+                        <tr class="success">
+                            <th>Internet</th>
+                            <td><label class="switch"><input type="checkbox"checked><span class="slider round"></span></label></td>
+                            <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+                            <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+                        </tr>
+                        <tr class="warning">
+                            <th>Teléfono</th>
+                            <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+                            <td><label class="switch"><input type="checkbox"><span class="slider round"></span></label></td>
+                            <td><label class="switch"><input type="checkbox"checked><span class="slider round"></span></label></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            Nombre del cliente
+                            Diego Armando Herrera Flores
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -186,9 +214,9 @@
                             <ul class="nav nav-pills nav-justified">
                                 <li class="active"><a href="#datos-generales" data-toggle="tab">Datos generales</a>
                                 </li>
-                                <li><a href="#servicios" data-toggle="tab">Servicios</a>
-                                </li>
                                 <li><a href="#otros-datos" data-toggle="tab">Otros datos</a>
+                                </li>
+                                <li><a href="#servicios" data-toggle="tab">Servicios</a>
                                 </li>
                                 <li><a href="#ordenes-tecnicas" data-toggle="tab">Ordenes técnicas</a>
                                 </li>
@@ -202,6 +230,10 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade in active" id="datos-generales">
                                     <h4>Datos generales</h4>
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                </div>
+                                <div class="tab-pane fade" id="otros-datos">
+                                    <h4>Otros datos</h4>
                                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                                 </div>
                                 <div class="tab-pane fade in" id="servicios">
@@ -322,10 +354,6 @@
 
                                     </div>
                                     <!-- Accordion wrapper -->
-                                </div>
-                                <div class="tab-pane fade" id="otros-datos">
-                                    <h4>Otros datos</h4>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                                 </div>
                                 <div class="tab-pane fade" id="ordenes-tecnicas">
                                     <h4>Ordenes técnicas</h4>

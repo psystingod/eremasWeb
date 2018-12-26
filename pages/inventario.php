@@ -1,7 +1,18 @@
 <?php
     require("../php/getInventory.php");
+    require("../php/productsInfo.php");
+
+    // Trae el inventario completo de la base de datos
     $getInventory = new GetInventory();
-    $ProductInfo = $getInventory->showInventoryRecords();
+    $recordsInfo = $getInventory->showInventoryRecords();
+
+    // Métodos para traer la información de los productos
+    $productsInfo = new ProductsInfo();
+    $categories = $productsInfo->getCategories();
+    $subCategories = $productsInfo->getSubCategories();
+    $um = $productsInfo->getMeasurements();
+    $warehouses = $productsInfo->getWarehouses();
+    $departments = $productsInfo->getDepartments();
 ?>
 
 <!DOCTYPE html>
@@ -66,12 +77,12 @@
                         <i class="far fa-user"></i> <i class="fas fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><i class="fas fa-user-circle"></i> Perfil</a>
+                        <li><a href="perfil.php"><i class="fas fa-user-circle"></i> Perfil</a>
                         </li>
-                        <li><a href="#"><i class="fas fa-cog"></i> Configuración</a>
+                        <li><a href="config.php"><i class="fas fa-cog"></i> Configuración</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fas fa-sign-out-alt"></i></i> Salir</a>
+                        <li><a href="../php/logout.php"><i class="fas fa-sign-out-alt"></i></i> Salir</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -88,88 +99,25 @@
                             <a href="index.html"><i class="fas fa-home"></i> Principal</a>
                         </li>
                         <li>
-                            <a class="" href="#"><i class="fas fa-users"></i> Clientes<i class="fas fa-caret-down pull-right"></i></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="flot.html"></a>
-                                </li>
-                                <li>
-                                    <a href="morris.html"></a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a class="" href="infoCliente.php"><i class="fas fa-users"></i> Clientes</a>
                         </li>
                         <li>
-                            <a class="active" href="inventario.php"><i class="fas fa-scroll"></i> Inventario</a>
+                            <a href="inventario.php"><i class="fas fa-scroll"></i> Inventario</a>
                         </li>
                         <li>
-                            <a href="forms.html"><i class="fas fa-file-signature"></i></i> Planillas</a>
+                            <a href="planillas.php"><i class="fas fa-file-signature"></i></i> Planillas</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fas fa-money-check-alt"></i> Contabilidad<i class="fas fa-caret-down pull-right"></i></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="panels-wells.html"></a>
-                                </li>
-                                <li>
-                                    <a href="buttons.html"></a>
-                                </li>
-                                <li>
-                                    <a href="notifications.html"></a>
-                                </li>
-                                <li>
-                                    <a href="typography.html"></a>
-                                </li>
-                                <li>
-                                    <a href="icons.html"></a>
-                                </li>
-                                <li>
-                                    <a href="grid.html"></a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="contabilidad.php"><i class="fas fa-money-check-alt"></i> Contabilidad</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fas fa-hand-holding-usd"></i> Cuentas por cobrar<i class="fas fa-caret-down pull-right"></i></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="#"></a>
-                                </li>
-                                <li>
-                                    <a href="#"></a>
-                                </li>
-                                <li>
-                                    <a href="#"></a>
-                                    <ul class="nav nav-third-level">
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                        <li>
-                                            <a href="#">Third Level Item</a>
-                                        </li>
-                                    </ul>
-                                    <!-- /.nav-third-level -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="bancos.php"><i class="fas fa-university"></i> Bancos</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fas fa-money-bill-wave"></i> Cuentas por pagar<i class="fas fa-caret-down pull-right"></i></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="blank.html"></a>
-                                </li>
-                                <li>
-                                    <a href="login.html"></a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
+                            <a href="cxc.php"><i class="fas fa-hand-holding-usd"></i> Cuentas por cobrar</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fas fa-money-bill-wave"></i> Cuentas por pagar</a>
                         </li>
                     </ul>
                 </div>
@@ -203,12 +151,15 @@
             </div>
             <!-- /.row -->
             <div class="row">
+                <button id="traslados" type="submit" class="btn btn-default pull-left" disabled><i class='fas fa-truck'></i> Traslado de producto</button>
+
                 <button class="btn btn-primary pull-right" type="button" name="button" data-toggle="modal" data-target="#agregar"><i class="fas fa-plus-circle"></i> Agregar</button>
                 <br><br>
                 <div class="col-lg-12 estadistics">
                     <table width="100%" class="table table-striped table-hover" id="inventario">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>Código</th>
                                 <th>Nombre</th>
                                 <th>Descripción</th>
@@ -220,8 +171,9 @@
                         </thead>
                         <tbody>
                             <?php
-                                foreach ($ProductInfo as $key) {
+                                foreach ($recordsInfo as $key) {
                                     echo "<tr><td>";
+                                    echo "<input type='checkbox' class='form-control' id='checkTraslado' onclick='traslados()'>" . "</td><td>";
                                     echo $key["IdArticulo"] . "</td><td>";
                                     echo $key["Codigo"] . "</td><td>";
                                     echo $key["Nombre"] . "</td><td>";
@@ -241,17 +193,22 @@
                                                     </li>
                                                     <li><a href='login.html'><i class='fas fa-trash-alt'></i> Eliminar</a>
                                                     </li>
+                                                    <li class='divider'></li>
+                                                    <li><a href='#' id='idArticulo' onclick='transferProduct(".$key['IdArticulo'].")'><i class='fas fa-truck'></i> Traslado de producto</a>
+                                                    </li>
+
                                                 </ul>
                                             </div>" . "</td></tr>";
                                         }
                                     ?>
                         </tbody>
                     </table>
+
                     <!-- /.table-responsive -->
                     <div class="well">
                         <h4>Inventario Cablesat</h4>
-                        <p>El presente inventario está conformado por todos y cada uno de los artículos que se encuentran almacenados en las bodegas de Cablesat u objetos que se encuentran en uso en las diferentes unidades de la empresa. Ver información en: <a target="_blank" href="https://datatables.net/">https://cablesat.net/</a>.</p>
-                        <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://datatables.net/">Generar reporte</a>
+                        <p>El presente inventario está conformado por todos y cada uno de los artículos que se encuentran almacenados en las bodegas de Cablesat u objetos que se encuentran en uso en las diferentes unidades de la empresa. Ver información en: <a target="_blank" href="https://cablesat.net/">https://cablesat.net/</a>.</p>
+                        <a class="btn btn-default btn-lg btn-block" target="_blank" href="https://cablesat.com/">Generar reporte</a>
                     </div>
                 </div>
                 <!-- /.col-lg-12 -->
@@ -302,47 +259,84 @@
                                   <div class="form-row">
                                       <div class="form-group col-md-4 col-xs-4">
                                           <label for="Tipo de producto">Tipo de producto</label>
-                                          <input type="text" class="form-control" name="tProducto" id="tProducto" placeholder="Tipo de producto">
+                                          <select class="form-control form-control-lg" name="tProducto">
+                                              <option value="" selected="selected">Seleccionar...</option>
+                                              <option value="">Para instalaciones</option>
+                                              <option value="">Para consumo</option>
+                                          </select>
                                       </div>
                                       <div class="form-group col-md-4 col-xs-4">
-                                          <label for="Categoria">Categoria</label>
-                                          <input type="text" class="form-control" name="categoria" id="categoria" placeholder="Categoria">
+                                          <label for="categoria">Categoria</label>
+                                          <select class="form-control form-control-lg" name="categoria">
+                                              <option value="" selected="selected">Seleccionar...</option>
+                                              <?php
+                                                foreach ($categories as $key) {
+                                                    echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                                }
+                                              ?>
+                                          </select>
                                       </div>
                                       <div class="form-group col-md-4 col-xs-4">
-                                          <label for="Sub categoria">Sub categoria</label>
-                                          <input type="text" class="form-control" name="subCategoria" id="subCategoria" placeholder="Sub categoría">
+                                          <label for="subCategoria">Sub categoria</label>
+                                          <select class="form-control form-control-lg" name="subCategoria">
+                                              <option value="" selected="selected">Seleccionar...</option>
+                                              <?php
+                                              foreach ($subCategories as $key) {
+                                                  echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                              }
+                                              ?>
+                                          </select>
                                       </div>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-6 col-xs-6">
                                           <label for="bodega">Bodega</label>
-                                          <input type="text" class="form-control" name="bodega" id="bodega" placeholder="Bodega">
+                                          <select class="form-control form-control-lg" name="bodega">
+                                              <option value="" selected="selected">Seleccionar...</option>
+                                              <?php
+                                                foreach ($warehouses as $key) {
+                                                    echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                                }
+                                              ?>
+                                          </select>
                                       </div>
                                       <div class="form-group col-md-6 col-xs-6">
                                           <label for="departamento">Departamento</label>
-                                          <input type="text" class="form-control" name="departamento" id="departamento" placeholder="Departamento">
+                                          <select class="form-control form-control-lg" name="departamento">
+                                              <option value="" selected="selected">Seleccionar...</option>
+                                              <?php
+                                                foreach ($departments as $key) {
+                                                    echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                                }
+                                              ?>
+                                          </select>
                                       </div>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-4 col-xs-4">
-                                          <label for="precio de compra">Precio de compra</label>
+                                          <label for="precio de compra">Precio de compra (U)</label>
                                           <input type="text" class="form-control" name="pCompra" id="pCompra" placeholder="Precio de compra">
                                       </div>
                                       <div class="form-group col-md-4 col-xs-4">
-                                          <label for="precio de venta">Precio de venta</label>
+                                          <label for="precio de venta">Precio de venta (U)</label>
                                           <input type="text" class="form-control" name="pVenta" id="pVenta" placeholder="Precio de venta">
                                       </div>
                                       <div class="form-group col-md-4 col-xs-4">
-                                          <label for="precio de venta">Unidad de medida</label>
-                                          <select class="form-control form-control-lg">
-                                              <option>Seleccionar</option>
+                                          <label for="um">Unidad de medida</label>
+                                          <select class="form-control form-control-lg" name="um">
+                                              <option value="" selected="selected">Seleccionar...</option>
+                                              <?php
+                                              foreach ($um as $key) {
+                                                  echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                              }
+                                              ?>
                                           </select>
                                       </div>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-12 col-xs-12">
                                             <label for="message-text" class="control-label">Descripción:</label>
-                                            <textarea class="form-control" name="descripcion" id="descripcion"></textarea>
+                                            <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Agregue una breve descripcion del producto"></textarea>
                                       </div>
                                   </div>
                       </div>
@@ -391,6 +385,22 @@
         }
         });
     });
+    </script>
+
+    <script type="text/javascript">
+        function transferProduct(id) {
+            window.location = "index.html?id="+id;
+        }
+    </script>
+
+    <script type="text/javascript">
+        function traslados() {
+            if (document.getElementById('checkTraslado').checked == true) {
+                document.getElementById('traslados').disabled = false;
+            } else {
+                document.getElementById('traslados').disabled = true;
+            }
+        }
     </script>
 
     <script type="text/javascript">

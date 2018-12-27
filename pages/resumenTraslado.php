@@ -2,6 +2,13 @@
     require("../php/translateProcess.php");
     $tp = new TranslateProcess();
     $tpArray = $tp->getProductsTranslated();
+
+    require("../php/productsInfo.php");
+
+    // Métodos para traer la información de los productos
+    $productsInfo = new ProductsInfo();
+    $warehouses = $productsInfo->getWarehouses();
+
 ?>
 
 <!DOCTYPE html>
@@ -111,26 +118,50 @@
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
+                <form class="" action="index.html" method="post">
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Resumen de traslado</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                     <div class="row">
+                        <div class="col-md-6">
+                            <label for="bodegaOrigen">Bodega de origen</label>
+                            <select class="form-control" name="bodegaOrigen">
+                                <option value="" selected="selected">Seleccionar...</option>
+                                <?php
+                                  foreach ($warehouses as $key) {
+                                      echo "<option value=".strtolower($key['NombreBodega'])." >".$key['NombreBodega']."</option>";
+                                  }
+                                ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="bodegaDestino">Bodega de destino</label>
+                            <select class="form-control" name="bodegaDestino">
+                                <option value="" selected="selected">Seleccionar...</option>
+                                <?php
+                                  foreach ($warehouses as $key) {
+                                      echo "<option value=".strtolower($key['NombreBodega'])." >".$key['NombreBodega']."</option>";
+                                  }
+                                ?>
+                            </select>
                         </div>
                         <div class="col-lg-12">
                             <br>
                             <table class="table table-striped">
                                 <th>Id</th>
                                 <th>Artículo</th>
-                                <th>Existencias en bodega</th>
+                                <th>Bodega</th>
+                                <th>Existencias</th>
                                 <th>Cantidad a trasladar</th>
                                 <?php
                                     foreach ($tpArray as $article) {
                                         $i = 0;
                                         echo "<tr><td>";
                                         echo $article[$i]["IdArticulo"]. "</td><td>";
-                                        echo $article[$i]["Nombre"]. "</td><td>";
+                                        echo $article[$i]["NombreArticulo"]. "</td><td>";
+                                        echo $article[$i]["NombreBodega"]. "</td><td>";
                                         echo $article[$i]["Cantidad"]. "</td><td>";
                                         echo "<input type='text' class='form-control' name='articleToBeTraslated[]' value='' placeholder='Ingresar cantidad a trasladar'>" . "</td><tr>";
                                         $i++;
@@ -138,9 +169,16 @@
                                 ?>
                             </table>
                         </div>
-                    </div>
+                    </div><!-- /.row -->
                 </div>
                 <!-- /.row -->
+                <div class="row">
+                    <h5><strong>Razón por la cual se realiza el traslado</strong></h5>
+                    <textarea class="" name="justificacion" rows="5" cols="80"></textarea><br>
+                    <button type="submit" class="btn btn-default">Volver a inventario</button>
+                    <button type="submit" class="btn btn-primary">Realizar traslado</button>
+                </div>
+                </form>
             </div>
             <!-- /.container-fluid -->
         </div>

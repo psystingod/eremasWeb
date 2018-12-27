@@ -12,7 +12,7 @@
         public function showInventoryRecords()
         {
             try {
-                // SQL query para traer datos de los productos
+                // SQL query para traer los datos de los productos
                 $query = "SELECT * FROM tbl_articulo";
                 // Preparación de sentencia
                 $statement = $this->dbConnect->prepare($query);

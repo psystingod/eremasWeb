@@ -18,7 +18,7 @@
                 $descripcion = $_POST["descripcion"];
                 $subCategoria = $_POST["subCategoria"];
 
-                $query = "INSERT INTO tbl_articulo(Codigo, Nombre, Descripcion, IdSubCategoria) VALUES(:codigo, :nombre, :descripcion, (SELECT tbl_subcategoria.IdSubCategoria FROM tbl_subcategoria WHERE tbl_subcategoria.Nombre = :subCategoria))";
+                $query = "INSERT INTO tbl_articulo(Codigo, NombreArticulo, Descripcion, IdSubCategoria) VALUES(:codigo, :nombre, :descripcion, (SELECT tbl_subcategoria.IdSubCategoria FROM tbl_subcategoria WHERE tbl_subcategoria.Nombre = :subCategoria))";
                 // Preparación de sentencia
                 $statement = $this->dbConnect->prepare($query);
                 $statement->execute(array(

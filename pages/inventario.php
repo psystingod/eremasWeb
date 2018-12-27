@@ -178,7 +178,7 @@
                                     echo "<input type='checkbox' class='form-control checkbox' name='checkTraslado[]' value=".$key['IdArticulo'].">" . "</td><td>";
                                     echo $key["IdArticulo"] . "</td><td>";
                                     echo $key["Codigo"] . "</td><td>";
-                                    echo $key["Nombre"] . "</td><td>";
+                                    echo $key["NombreArticulo"] . "</td><td>";
                                     echo $key["Descripcion"] . "</td><td>";
                                     echo $key["Cantidad"] . "</td><td>";
                                     echo $key["PrecioCompra"] . "</td><td>";

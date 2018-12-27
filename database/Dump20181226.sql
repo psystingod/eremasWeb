@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `tbl_articulo`;
 CREATE TABLE `tbl_articulo` (
   `IdArticulo` int(11) NOT NULL AUTO_INCREMENT,
   `Codigo` varchar(50) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
+  `NombreArticulo` varchar(100) NOT NULL,
   `Descripcion` varchar(100) DEFAULT NULL,
   `Cantidad` double NOT NULL,
   `PrecioCompra` double NOT NULL,
@@ -69,7 +69,7 @@ DROP TABLE IF EXISTS `tbl_bodega`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_bodega` (
   `IdBodega` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(100) NOT NULL,
+  `NombreBodega` varchar(100) NOT NULL,
   `Direccion` varchar(100) NOT NULL,
   `State` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdBodega`)

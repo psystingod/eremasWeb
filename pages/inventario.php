@@ -151,7 +151,9 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <button id="traslados" type="submit" class="btn btn-default pull-left" disabled><i class='fas fa-truck'></i> Traslado de producto</button>
+                <form class="" action="resumenTraslado.php" method="post">
+
+                <button id="traslados" type="submit" class="btn btn-default pull-left" disabled = "disabled"><i class='fas fa-truck'></i> Traslado de producto</button>
 
                 <button class="btn btn-primary pull-right" type="button" name="button" data-toggle="modal" data-target="#agregar"><i class="fas fa-plus-circle"></i> Agregar</button>
                 <br><br>
@@ -173,7 +175,7 @@
                             <?php
                                 foreach ($recordsInfo as $key) {
                                     echo "<tr><td>";
-                                    echo "<input type='checkbox' class='form-control' id='checkTraslado' onclick='traslados()'>" . "</td><td>";
+                                    echo "<input type='checkbox' class='form-control checkbox' name='checkTraslado[]' value=".$key['IdArticulo'].">" . "</td><td>";
                                     echo $key["IdArticulo"] . "</td><td>";
                                     echo $key["Codigo"] . "</td><td>";
                                     echo $key["Nombre"] . "</td><td>";
@@ -194,7 +196,7 @@
                                                     <li><a href='login.html'><i class='fas fa-trash-alt'></i> Eliminar</a>
                                                     </li>
                                                     <li class='divider'></li>
-                                                    <li><a href='#' id='idArticulo' onclick='transferProduct(".$key['IdArticulo'].")'><i class='fas fa-truck'></i> Traslado de producto</a>
+                                                    <li><a href='index.html' id='idArticulo' onclick='transferProduct(".$key['IdArticulo'].")'><i class='fas fa-truck'></i> Traslado de producto</a>
                                                     </li>
 
                                                 </ul>
@@ -203,7 +205,7 @@
                                     ?>
                         </tbody>
                     </table>
-
+                    </form>
                     <!-- /.table-responsive -->
                     <div class="well">
                         <h4>Inventario Cablesat</h4>
@@ -394,13 +396,11 @@
     </script>
 
     <script type="text/javascript">
-        function traslados() {
-            if (document.getElementById('checkTraslado').checked == true) {
-                document.getElementById('traslados').disabled = false;
-            } else {
-                document.getElementById('traslados').disabled = true;
-            }
-        }
+        $(function() {
+            $(".checkbox").click(function(){
+                $('#traslados').prop('disabled',$('input.checkbox:checked').length == 0);
+            });
+        });
     </script>
 
     <script type="text/javascript">

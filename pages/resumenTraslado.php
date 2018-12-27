@@ -118,7 +118,7 @@
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
-                <form class="" action="index.html" method="post">
+                <form class="" action="translateSuccess.php" method="post">
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Resumen de traslado</h1>

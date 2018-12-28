@@ -13,6 +13,8 @@
     $um = $productsInfo->getMeasurements();
     $warehouses = $productsInfo->getWarehouses();
     $departments = $productsInfo->getDepartments();
+    $productsType = $productsInfo->getProductType();
+    $proveedores = $productsInfo->getProviders();
 ?>
 
 <!DOCTYPE html>
@@ -244,14 +246,21 @@
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-12 col-xs-12">
-                                          <label for="codigo">Nombre</label>
+                                          <label for="nombre">Nombre</label>
                                           <input type="text" class="form-control" name="nombre" id="nombre" placeholder="Nombre del producto">
                                       </div>
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-6 col-xs-6">
                                           <label for="proveedor">Proveedor</label>
-                                          <input type="text" class="form-control" name="proveedor" id="proveedor" placeholder="Proveedor">
+                                          <select class="form-control form-control-lg" name="proveedor">
+                                              <option value="" selected="selected">Seleccionar...</option>
+                                              <?php
+                                              foreach ($proveedores as $key) {
+                                                  echo "<option value=".strtolower($key['NombreProveedor'])." >".$key['NombreProveedor']."</option>";
+                                              }
+                                              ?>
+                                          </select>
                                       </div>
                                       <div class="form-group col-md-6 col-xs-6">
                                           <label for="cantidad">Cantidad</label>
@@ -260,11 +269,14 @@
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-4 col-xs-4">
-                                          <label for="Tipo de producto">Tipo de producto</label>
-                                          <select class="form-control form-control-lg" name="tProducto">
+                                          <label for="tipoProducto">Tipo de producto</label>
+                                          <select class="form-control form-control-lg" name="tipoProducto">
                                               <option value="" selected="selected">Seleccionar...</option>
-                                              <option value="">Para instalaciones</option>
-                                              <option value="">Para consumo</option>
+                                              <?php
+                                                foreach ($productsType as $key) {
+                                                    echo "<option value=".strtolower($key['NombreTipoProducto'])." >".$key['NombreTipoProducto']."</option>";
+                                                }
+                                              ?>
                                           </select>
                                       </div>
                                       <div class="form-group col-md-4 col-xs-4">
@@ -273,7 +285,7 @@
                                               <option value="" selected="selected">Seleccionar...</option>
                                               <?php
                                                 foreach ($categories as $key) {
-                                                    echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                                    echo "<option value=".strtolower($key['NombreCategoria'])." >".$key['NombreCategoria']."</option>";
                                                 }
                                               ?>
                                           </select>
@@ -284,7 +296,7 @@
                                               <option value="" selected="selected">Seleccionar...</option>
                                               <?php
                                               foreach ($subCategories as $key) {
-                                                  echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                                  echo "<option value=".strtolower($key['NombreSubCategoria'])." >".$key['NombreSubCategoria']."</option>";
                                               }
                                               ?>
                                           </select>
@@ -297,7 +309,7 @@
                                               <option value="" selected="selected">Seleccionar...</option>
                                               <?php
                                                 foreach ($warehouses as $key) {
-                                                    echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                                    echo "<option value=".strtolower($key['NombreBodega'])." >".$key['NombreBodega']."</option>";
                                                 }
                                               ?>
                                           </select>
@@ -308,7 +320,7 @@
                                               <option value="" selected="selected">Seleccionar...</option>
                                               <?php
                                                 foreach ($departments as $key) {
-                                                    echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                                    echo "<option value=".strtolower($key['NombreDepartamento'])." >".$key['NombreDepartamento']."</option>";
                                                 }
                                               ?>
                                           </select>
@@ -329,7 +341,7 @@
                                               <option value="" selected="selected">Seleccionar...</option>
                                               <?php
                                               foreach ($um as $key) {
-                                                  echo "<option value=".strtolower($key['Nombre'])." >".$key['Nombre']."</option>";
+                                                  echo "<option value=".strtolower($key['NombreUnidadMedida'])." >".$key['NombreUnidadMedida']."</option>";
                                               }
                                               ?>
                                           </select>
@@ -337,7 +349,7 @@
                                   </div>
                                   <div class="form-row">
                                       <div class="form-group col-md-12 col-xs-12">
-                                            <label for="message-text" class="control-label">Descripción:</label>
+                                            <label for="descripcion" class="control-label">Descripción:</label>
                                             <textarea class="form-control" name="descripcion" id="descripcion" placeholder="Agregue una breve descripcion del producto"></textarea>
                                       </div>
                                   </div>
@@ -406,7 +418,7 @@
     <script type="text/javascript">
         var d = new Date();
         var month = String((parseInt(d.getMonth()+1)))
-        document.getElementById("fecha").value = d.getDate()+"/"+month+"/"+d.getFullYear();
+        document.getElementById("fecha").value = d.getDate()+"-"+month+"-"+d.getFullYear();
     </script>
 
 </body>

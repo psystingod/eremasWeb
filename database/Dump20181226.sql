@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `demo` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `demo`;
+CREATE DATABASE  IF NOT EXISTS `satpro` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `satpro`;
 -- MySQL dump 10.16  Distrib 10.1.36-MariaDB, for Win32 (AMD64)
 --
 -- Host: 127.0.0.1    Database: demo
@@ -26,25 +26,28 @@ DROP TABLE IF EXISTS `tbl_articulo`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_articulo` (
   `IdArticulo` int(11) NOT NULL AUTO_INCREMENT,
-  `Codigo` varchar(50) NOT NULL,
-  `NombreArticulo` varchar(100) NOT NULL,
-  `Descripcion` varchar(100) DEFAULT NULL,
+  `Codigo` varchar(11) NOT NULL,
+  `NombreArticulo` varchar(35) NOT NULL,
+  `Descripcion` varchar(35) DEFAULT NULL,
   `Cantidad` double NOT NULL,
   `PrecioCompra` double NOT NULL,
   `PrecioVenta` double NOT NULL,
   `FechaEntrada` date NOT NULL,
   `IdUnidadMedida` int(11) NOT NULL,
   `IdTipoProducto` int(11) DEFAULT NULL,
+  `IdCategoria` int(11) DEFAULT NULL,
   `IdSubCategoria` int(11) DEFAULT NULL,
   `IdProveedor` int(11) DEFAULT NULL,
   `IdBodega` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdArticulo`),
   KEY `UnidadM_idx` (`IdUnidadMedida`),
+  KEY `Cate_idx` (`IdCategoria`),
   KEY `SubCate_idx` (`IdSubCategoria`),
   KEY `Proveedor_idx` (`IdProveedor`),
   KEY `Bodega_idx` (`IdBodega`),
   CONSTRAINT `Bodega` FOREIGN KEY (`IdBodega`) REFERENCES `tbl_bodega` (`IdBodega`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `Proveedor` FOREIGN KEY (`IdProveedor`) REFERENCES `tbl_proveedor` (`IdProveedor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Cate` FOREIGN KEY (`IdCategoria`) REFERENCES `tbl_categoria` (`IdCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `SubCate` FOREIGN KEY (`IdSubCategoria`) REFERENCES `tbl_subcategoria` (`IdSubCategoria`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `UnidadM` FOREIGN KEY (`IdUnidadMedida`) REFERENCES `tbl_unidadmedida` (`IdUnidadMedida`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
@@ -56,7 +59,7 @@ CREATE TABLE `tbl_articulo` (
 
 LOCK TABLES `tbl_articulo` WRITE;
 /*!40000 ALTER TABLE `tbl_articulo` DISABLE KEYS */;
-INSERT INTO `tbl_articulo` VALUES (2,'123-01','HP ENVY 13','Computadora Portatil',8,566.9,600.89,'2018-12-02',1,1,1,1,1),(3,'123-02','OMEN X HP','Computadora de uso personal portatil',4,700.9,800.89,'2018-12-02',1,1,1,1,1),(5,'123-04','modem Zyxel 600 ','--',10,80.9,100.89,'2018-12-02',1,1,3,1,1),(6,'123-04','módem zyxel p660 HW-T1','--',10,80.9,100.89,'2018-12-02',1,1,3,1,1);
+INSERT INTO `tbl_articulo` VALUES (2,'123-01','HP ENVY 13','Computadora Portatil',8,566.9,600.89,'2018-12-02',1,1,1,1,1,1),(3,'123-02','OMEN X HP','Computadora de uso personal portatil',4,700.9,800.89,'2018-12-02',1,1,1,1,1,1),(5,'123-04','modem Zyxel 600 ','--',10,80.9,100.89,'2018-12-02',1,1,1,3,1,1),(6,'123-04','módem zyxel p660 HW-T1','--',10,80.9,100.89,'2018-12-02',1,1,1,3,1,1);
 /*!40000 ALTER TABLE `tbl_articulo` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,8 +72,8 @@ DROP TABLE IF EXISTS `tbl_bodega`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_bodega` (
   `IdBodega` int(11) NOT NULL AUTO_INCREMENT,
-  `NombreBodega` varchar(100) NOT NULL,
-  `Direccion` varchar(100) NOT NULL,
+  `NombreBodega` varchar(25) NOT NULL,
+  `Direccion` varchar(25) NOT NULL,
   `State` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdBodega`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -95,11 +98,29 @@ DROP TABLE IF EXISTS `tbl_categoria`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_categoria` (
   `IdCategoria` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(100) NOT NULL,
+  `NombreCategoria` varchar(20) NOT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdCategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+DROP TABLE IF EXISTS `tbl_tipoproducto`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+
+CREATE TABLE `tbl_tipoproducto` (
+  `IdTipoProducto` int(11) NOT NULL AUTO_INCREMENT,
+  `NombreTipoProducto` varchar(20) NOT NULL,
+  `state` int(11) DEFAULT NULL,
+  PRIMARY KEY (`IdTipoProducto`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+LOCK TABLES `tbl_tipoproducto` WRITE;
+/*!40000 ALTER TABLE `tbl_tipoproducto` DISABLE KEYS */;
+INSERT INTO `tbl_tipoproducto` VALUES (1,'Para instalación',1),(2,'Para oficina',1);
+/*!40000 ALTER TABLE `tbl_tipoproducto` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Dumping data for table `tbl_categoria`
@@ -121,8 +142,8 @@ DROP TABLE IF EXISTS `tbl_departamento`;
 CREATE TABLE `tbl_departamento` (
   `IdDepartamento` int(11) NOT NULL AUTO_INCREMENT,
   `Codigo` varchar(100) NOT NULL,
-  `Nombre` varchar(100) NOT NULL,
-  `Descripcion` varchar(200) NOT NULL,
+  `NombreDepartamento` varchar(20) NOT NULL,
+  `Descripcion` varchar(140) NOT NULL,
   `State` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdDepartamento`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
@@ -181,14 +202,14 @@ CREATE TABLE `tbl_empleado` (
   `Codigo` varchar(100) NOT NULL,
   `Nombres` varchar(100) NOT NULL,
   `Apellidos` varchar(100) NOT NULL,
-  `Direccion` varchar(100) NOT NULL,
-  `Dui` varchar(100) NOT NULL,
-  `Nit` varchar(100) NOT NULL,
-  `Isss` varchar(50) NOT NULL,
-  `E_Familiar` varchar(50) NOT NULL,
-  `G_Academico` varchar(50) NOT NULL,
+  `Direccion` varchar(140) NOT NULL,
+  `Dui` varchar(11) NOT NULL,
+  `Nit` varchar(18) NOT NULL,
+  `Isss` varchar(15) NOT NULL,
+  `E_Familiar` varchar(15) NOT NULL,
+  `G_Academico` varchar(25) NOT NULL,
   `FechaNacimiento` date NOT NULL,
-  `Telefono` varchar(50) NOT NULL,
+  `Telefono` varchar(10) NOT NULL,
   `IdReferencia` int(11) DEFAULT NULL,
   `IdUsuario` int(11) DEFAULT NULL,
   `IdDepartamento` int(11) DEFAULT NULL,
@@ -222,13 +243,13 @@ DROP TABLE IF EXISTS `tbl_proveedor`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_proveedor` (
   `IdProveedor` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(100) NOT NULL,
-  `Representate` varchar(100) NOT NULL,
-  `Telefono` varchar(100) NOT NULL,
-  `Correo` varchar(100) NOT NULL,
-  `Nrc` varchar(100) NOT NULL,
-  `Nit` varchar(100) NOT NULL,
-  `Nacionalidad` varchar(100) NOT NULL,
+  `NombreProveedor` varchar(25) NOT NULL,
+  `Representate` varchar(25) NOT NULL,
+  `Telefono` varchar(10) NOT NULL,
+  `Correo` varchar(35) NOT NULL,
+  `Nrc` varchar(15) NOT NULL,
+  `Nit` varchar(18) NOT NULL,
+  `Nacionalidad` varchar(25) NOT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdProveedor`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
@@ -254,10 +275,10 @@ DROP TABLE IF EXISTS `tbl_referencia`;
 CREATE TABLE `tbl_referencia` (
   `IdReferencia` int(11) NOT NULL AUTO_INCREMENT,
   `IdEmpleado` int(11) DEFAULT NULL,
-  `Referencia_1` varchar(100) DEFAULT NULL,
-  `Telefono_1` varchar(100) DEFAULT NULL,
-  `Referencia_2` varchar(100) DEFAULT NULL,
-  `Telefono_2` varchar(100) DEFAULT NULL,
+  `Referencia_1` varchar(50) DEFAULT NULL,
+  `Telefono_1` varchar(10) DEFAULT NULL,
+  `Referencia_2` varchar(50) DEFAULT NULL,
+  `Telefono_2` varchar(10) DEFAULT NULL,
   `State` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdReferencia`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -312,7 +333,7 @@ DROP TABLE IF EXISTS `tbl_subcategoria`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_subcategoria` (
   `IdSubCategoria` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(100) NOT NULL,
+  `NombreSubCategoria` varchar(25) NOT NULL,
   `IdCategoria` int(11) DEFAULT NULL,
   `State` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdSubCategoria`),
@@ -340,8 +361,8 @@ DROP TABLE IF EXISTS `tbl_unidadmedida`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_unidadmedida` (
   `IdUnidadMedida` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(100) NOT NULL,
-  `Abreviatura` varchar(100) NOT NULL,
+  `NombreUnidadMedida` varchar(100) NOT NULL,
+  `Abreviatura` varchar(5) NOT NULL,
   `state` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdUnidadMedida`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
@@ -366,8 +387,8 @@ DROP TABLE IF EXISTS `tbl_usuario`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `tbl_usuario` (
   `IdUsuario` int(11) NOT NULL AUTO_INCREMENT,
-  `Usuario` varchar(50) NOT NULL,
-  `Clave` varchar(50) NOT NULL,
+  `Usuario` varchar(30) NOT NULL,
+  `Clave` varchar(25) NOT NULL,
   `State` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdUsuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;

@@ -13,7 +13,7 @@
         {
             try {
                 // SQL query para traer nombre de las categorías
-                $query = "SELECT Nombre FROM tbl_categoria";
+                $query = "SELECT NombreCategoria FROM tbl_categoria";
                 // Preparación de sentencia
                 $statement = $this->dbConnect->prepare($query);
                 $statement->execute();
@@ -30,7 +30,7 @@
         {
             try {
                 // SQL query para traer nombre de las categorías
-                $query = "SELECT Nombre FROM tbl_subcategoria";
+                $query = "SELECT NombreSubCategoria FROM tbl_subcategoria";
                 // Preparación de sentencia
                 $statement = $this->dbConnect->prepare($query);
                 $statement->execute();
@@ -47,7 +47,7 @@
         {
             try {
                 // SQL query para traer nombre de las categorías
-                $query = "SELECT Nombre FROM tbl_unidadmedida";
+                $query = "SELECT NombreUnidadMedida FROM tbl_unidadmedida";
                 // Preparación de sentencia
                 $statement = $this->dbConnect->prepare($query);
                 $statement->execute();
@@ -81,7 +81,41 @@
         {
             try {
                 // SQL query para traer nombre de las categorías
-                $query = "SELECT Nombre FROM tbl_departamento";
+                $query = "SELECT NombreDepartamento FROM tbl_departamento";
+                // Preparación de sentencia
+                $statement = $this->dbConnect->prepare($query);
+                $statement->execute();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                return $result;
+
+            } catch (Exception $e) {
+                print "!Error¡: " . $e->getMessage() . "</br>";
+                die();
+            }
+        }
+        public function getProductType()
+        {
+            try {
+                // SQL query para traer nombre de las categorías
+                $query = "SELECT NombreTipoProducto FROM tbl_tipoproducto";
+                // Preparación de sentencia
+                $statement = $this->dbConnect->prepare($query);
+                $statement->execute();
+                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                return $result;
+
+            } catch (Exception $e) {
+                print "!Error¡: " . $e->getMessage() . "</br>";
+                die();
+            }
+        }
+        public function getProviders()
+        {
+            try {
+                // SQL query para traer nombre de las categorías
+                $query = "SELECT NombreProveedor FROM tbl_proveedor";
                 // Preparación de sentencia
                 $statement = $this->dbConnect->prepare($query);
                 $statement->execute();

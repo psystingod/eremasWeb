@@ -10,7 +10,7 @@
         public function ConectionDB()
         {
             try {
-                $this->dbConnect = new PDO("mysql:host=127.0.0.1;dbname=demo", DB_USER, DB_PASSWORD);
+                $this->dbConnect = new PDO("mysql:host=127.0.0.1;dbname=satpro", DB_USER, DB_PASSWORD);
                 $this->dbConnect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                 $this->dbConnect->exec("SET CHARACTER SET utf8");
                 return $this->dbConnect;

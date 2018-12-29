@@ -127,22 +127,22 @@
                     <div class="row">
                         <div class="col-md-6">
                             <label for="bodegaOrigen">Bodega de origen</label>
-                            <select class="form-control" name="bodegaOrigen">
+                            <select class="form-control form-control-lg" name="bodegaOrigen">
                                 <option value="" selected="selected">Seleccionar...</option>
                                 <?php
                                   foreach ($warehouses as $key) {
-                                      echo "<option value=".strtolower($key['NombreBodega'])." >".$key['NombreBodega']."</option>";
+                                      echo "<option value=".str_replace(' ', '', $key['NombreBodega'])." >".$key['NombreBodega']."</option>";
                                   }
                                 ?>
                             </select>
                         </div>
                         <div class="col-md-6">
                             <label for="bodegaDestino">Bodega de destino</label>
-                            <select class="form-control" name="bodegaDestino">
+                            <select class="form-control form-control-lg" name="bodegaDestino">
                                 <option value="" selected="selected">Seleccionar...</option>
                                 <?php
                                   foreach ($warehouses as $key) {
-                                      echo "<option value=".strtolower($key['NombreBodega'])." >".$key['NombreBodega']."</option>";
+                                      echo "<option value=".str_replace(' ', '', $key['NombreBodega'])." >".$key['NombreBodega']."</option>";
                                   }
                                 ?>
                             </select>
@@ -159,10 +159,10 @@
                                     foreach ($tpArray as $article) {
                                         $i = 0;
                                         echo "<tr><td>";
-                                        echo $article[$i]["IdArticulo"]. "</td><td>";
-                                        echo $article[$i]["NombreArticulo"]. "</td><td>";
-                                        echo $article[$i]["NombreBodega"]. "</td><td>";
-                                        echo $article[$i]["Cantidad"]. "</td><td>";
+                                        echo '<input type=text class=form-control name=algo value="' . $article[$i]['IdArticulo'] . '" disabled></td><td>';
+                                        echo '<input type=text class=form-control name=algo value="' . $article[$i]['NombreArticulo'] . '" disabled></td><td>';
+                                        echo '<input type=text class=form-control name=algo value="' . $article[$i]['NombreBodega'] . '" disabled></td><td>';
+                                        echo '<input type=text class=form-control name=algo value="' . $article[$i]['Cantidad'] . '" disabled></td><td>';
                                         echo "<input type='text' class='form-control' name='articleToBeTraslated[]' value='' placeholder='Ingresar cantidad a trasladar'>" . "</td><tr>";
                                         $i++;
                                     }

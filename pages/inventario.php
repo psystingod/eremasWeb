@@ -153,7 +153,7 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <form class="" action="resumenTraslado.php" method="post">
+                <form class="" id="transferItems" action="resumenTraslado.php" method="post">
 
                 <button id="traslados" type="submit" class="btn btn-default pull-left" disabled = "disabled"><i class='fas fa-truck'></i> Traslado de producto</button>
 
@@ -274,7 +274,7 @@
                                               <option value="" selected="selected">Seleccionar...</option>
                                               <?php
                                                 foreach ($productsType as $key) {
-                                                    echo "<option value=".strtolower($key['NombreTipoProducto'])." >".$key['NombreTipoProducto']."</option>";
+                                                    echo "<option value=".str_replace(' ', '', $key['NombreTipoProducto'])." >".$key['NombreTipoProducto']."</option>";
                                                 }
                                               ?>
                                           </select>
@@ -309,7 +309,7 @@
                                               <option value="" selected="selected">Seleccionar...</option>
                                               <?php
                                                 foreach ($warehouses as $key) {
-                                                    echo "<option value=".strtolower($key['NombreBodega'])." >".$key['NombreBodega']."</option>";
+                                                    echo "<option value=".str_replace(' ', '', $key['NombreBodega'])." >".$key['NombreBodega']."</option>";
                                                 }
                                               ?>
                                           </select>

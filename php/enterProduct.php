@@ -30,9 +30,9 @@
 
                 $query = "INSERT INTO tbl_articulo(Codigo, NombreArticulo, Descripcion, Cantidad, PrecioCompra, PrecioVenta, FechaEntrada, IdUnidadMedida, IdTipoProducto, IdCategoria, IdSubCategoria, IdProveedor, IdBodega)
                           VALUES(:codigo, :nombre, :descripcion, :cantidad, :precioCompra, :precioVenta, :fechaEntrada, (SELECT tbl_unidadmedida.IdUnidadMedida FROM tbl_unidadmedida WHERE tbl_unidadmedida.NombreUnidadMedida = :unidadMedida),
-                                (SELECT tbl_tipoproducto.IdTipoProducto FROM tbl_tipoproducto WHERE tbl_tipoproducto.NombreTipoProducto = :tipoProducto), (SELECT tbl_categoria.IdCategoria FROM tbl_categoria WHERE tbl_categoria.NombreCategoria = :categoria),
+                                (SELECT tbl_tipoproducto.IdTipoProducto FROM tbl_tipoproducto WHERE REPLACE(tbl_tipoproducto.NombreTipoProducto, ' ', '') = :tipoProducto), (SELECT tbl_categoria.IdCategoria FROM tbl_categoria WHERE tbl_categoria.NombreCategoria = :categoria),
                                 (SELECT tbl_subcategoria.IdSubCategoria FROM tbl_subcategoria WHERE tbl_subcategoria.NombreSubCategoria = :subCategoria), (SELECT tbl_proveedor.IdProveedor FROM tbl_proveedor WHERE tbl_proveedor.NombreProveedor = :proveedor),
-                                (SELECT tbl_bodega.IdBodega FROM tbl_bodega WHERE tbl_bodega.NombreBodega = :bodega))";
+                                (SELECT tbl_bodega.IdBodega FROM tbl_bodega WHERE REPLACE(tbl_bodega.NombreBodega, ' ', '') = :bodega))";
                 // Preparación de sentencia
                 $statement = $this->dbConnect->prepare($query);
                 $statement->execute(array(

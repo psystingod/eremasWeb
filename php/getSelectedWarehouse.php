@@ -1,10 +1,59 @@
 <?php
+    require('connection.php');
+    /**
+     * Clase para capturar los datos de la solicitud
+     */
+    class GetInventory2 extends ConectionDB
+    {
+        public function GetInventory2()
+        {
+            parent::__construct ();
+        }
+        public function showInventoryRecords()
+        {
+            try {
+                if (isset($_POST["bodega"])) {
+                    // SQL query para traer los datos de los productos
+                    $query = "SELECT * FROM :bodega";
+                    // Preparación de sentencia
+                    $statement = $this->dbConnect->prepare($query);
+                    $statement->execute();
+                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                    $this->dbConnect = NULL;
+                    return $result;
+                }
+                else {
+                    // SQL query para traer los datos de los productos
+                    $query = "SELECT * FROM bdg_santamaria";
+                    // Preparación de sentencia
+                    $statement = $this->dbConnect->prepare($query);
+                    $statement->execute();
+                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                    $this->dbConnect = NULL;
+                    return $result;
+
+                }
+
+            } catch (Exception $e) {
+                print "!Error¡: " . $e->getMessage() . "</br>";
+                die();
+            }
+        }
+    }
+    $getInventory = new GetInventory2();
+    $recordsInfo = $getInventory->showInventoryRecords();
+
+?>
+
+<?php
     require("../php/getInventory.php");
     require("../php/productsInfo.php");
 
     // Trae el inventario completo de la base de datos
     $getInventory = new GetInventory();
-    $recordsInfo = $getInventory->showInventoryRecords('');
+    $recordsInfo = $getInventory->showInventoryRecords();
 
     // Métodos para traer la información de los productos
     $productsInfo = new ProductsInfo();
@@ -153,13 +202,13 @@
             </div>
             <!-- /.row -->
             <div class="row">
-                <form class="" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form class="" action="getSelectedWarehouse.php" method="post">
                     <div class="col-md-4">
 
                     </div>
                     <div class="col-md-4">
-                        <select class="form-control form-control-lg" name="bodega">
-                            <option name = "" value="" selected="selected">Seleccionar...</option>
+                        <select class="form-control form-control-lg" name="proveedor">
+                            <option name = "bodega" value="" selected="selected">Seleccionar...</option>
                             <?php
                             foreach ($warehouses as $key) {
                                 echo '<option value="' . $key['Nombre'] . '" >'.$key['Nombre'] . '</option>';
@@ -171,12 +220,6 @@
                         <button id="bodega" type="submit" class="btn btn-default"><i class="fas fa-warehouse"></i> Seleccionar</button>
                     </div>
                 </form>
-                <?php
-                if (isset($_POST['submit'])) {
-                    $getInventory = new GetInventory();
-                    $recordsInfo = $getInventory->showInventoryRecords($_POST["bodega"]);
-                }
-                ?>
             </div>
             <div class="row">
                 <form class="" id="transferItems" action="resumenTraslado.php" method="post">

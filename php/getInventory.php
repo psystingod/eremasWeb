@@ -9,18 +9,32 @@
         {
             parent::__construct ();
         }
-        public function showInventoryRecords()
+        public function showInventoryRecords($bodega)
         {
             try {
-                // SQL query para traer los datos de los productos
-                $query = "SELECT * FROM tbl_articulo";
-                // Preparación de sentencia
-                $statement = $this->dbConnect->prepare($query);
-                $statement->execute();
-                $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+                if (isset($_POST["bodega"])) {
+                    // SQL query para traer los datos de los productos
+                    $query = "SELECT * FROM bdg_quelepa";
+                    // Preparación de sentencia
+                    $statement = $this->dbConnect->prepare($query);
+                    $statement->execute();
+                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-                $this->dbConnect = NULL;
-                return $result;
+                    $this->dbConnect = NULL;
+                    return $result;
+                }
+                else {
+                    // SQL query para traer los datos de los productos
+                    $query = "SELECT * FROM bdg_santamaria";
+                    // Preparación de sentencia
+                    $statement = $this->dbConnect->prepare($query);
+                    $statement->execute();
+                    $result = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+                    $this->dbConnect = NULL;
+                    return $result;
+
+                }
 
             } catch (Exception $e) {
                 print "!Error¡: " . $e->getMessage() . "</br>";

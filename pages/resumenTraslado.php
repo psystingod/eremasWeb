@@ -118,7 +118,7 @@
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
-                <form class="" action="translateSuccess.php" method="post">
+                <form class="" action="../php/translateSuccess.php" method="post">
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">Resumen de traslado</h1>
@@ -159,11 +159,11 @@
                                     foreach ($tpArray as $article) {
                                         $i = 0;
                                         echo "<tr><td>";
-                                        echo '<input type=text class=form-control name=idArticulo value="' . $article[$i]['IdArticulo'] . '" disabled></td><td>';
-                                        echo '<input type=text class=form-control name=nombreArticulo value="' . $article[$i]['NombreArticulo'] . '" disabled></td><td>';
-                                        echo '<input type=text class=form-control name=nombreBodega value="' . $article[$i]['NombreBodega'] . '" disabled></td><td>';
-                                        echo '<input type=text class=form-control name=cantidad value="' . $article[$i]['Cantidad'] . '" disabled></td><td>';
-                                        echo "<input type='text' class='form-control' name='articleToBeTraslated[]' value='' placeholder='Ingresar cantidad a trasladar'>" . "</td><tr>";
+                                        echo '<input type=text class=form-control name=idArticulo[] value="' . $article[$i]['IdArticulo'] . '" readonly></td><td>';
+                                        echo '<input type=text class=form-control name=nombreArticulo[] value="' . $article[$i]['NombreArticulo'] . '" readonly></td><td>';
+                                        echo '<input type=text class=form-control name=nombreBodega[] value="' . $article[$i]['NombreBodega'] . '" readonly></td><td>';
+                                        echo '<input type=text class=form-control name=existencias[] value="' . $article[$i]['Cantidad'] . '" readonly></td><td>';
+                                        echo "<input type='text' class='form-control' name='cantidadATrasladar[]' value='' placeholder='Ingresar cantidad a trasladar'>" . "</td><tr>";
                                         $i++;
                                     }
                                 ?>
